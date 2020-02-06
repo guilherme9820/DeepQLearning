@@ -11,6 +11,7 @@ class Memory:
         self._max_steps = max_steps
 
     def add(self, experience):
+        """ Adds new experience to replay memory """
 
         state = tf.cast(experience[0], tf.float32)
         action = tf.cast(experience[1], tf.float32)
@@ -27,6 +28,8 @@ class Memory:
 
         batch = random.sample(self.buffer, batch_size)
 
+        # Splits every feature into separated chunks, each feature have
+        # shape (batch_size, feat_shape)
         state_batch = tf.stack([experience[0] for experience in batch])
         action_batch = tf.stack([experience[1] for experience in batch])
         reward_batch = tf.stack([experience[2] for experience in batch])
@@ -59,4 +62,7 @@ class Memory:
         environment.close_game()
 
     def __len__(self):
+        """ Returns the length of replay memory when casting len() 
+            function over a instance of this class
+        """
         return len(self.buffer)
