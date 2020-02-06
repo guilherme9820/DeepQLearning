@@ -47,7 +47,7 @@ class DoubleDeepQNetwork(QNet):
         self.target_agent = target_agent
 
     def call(self, experiences):
-        """ Updates main agent weights following bellman's equation """
+        """ Updates main agent weights following "Deep Reinforcement Learning with Double Q-learning" (Hasselt et al., 2015) """
 
         state_batch, action_batch, reward_batch, \
             next_state_batch, done_batch = experiences
