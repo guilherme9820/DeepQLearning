@@ -16,9 +16,13 @@ def train_agent(model,
 
     environment.init_game()
 
+
     counter = count()
+    
+    # Set frame counter to 0
     frame_count = next(counter)
 
+    # Train agent by a total of K frames specified by 'total_frames' parameter
     while frame_count < total_frames:
 
         environment.reset_frame_sequence()
@@ -28,11 +32,12 @@ def train_agent(model,
 
         while not done:
 
+            # Applies policy to choose an action
             action = policy(model, state_frames, environment.actions, frame_count)
 
             next_state_frames, reward, done = environment.frame_skip(action)
 
-            # Increment number of frames
+            # Increments number of frames
             frame_count = next(counter)
 
             experience = (state_frames, action, reward, next_state_frames, done)
@@ -42,6 +47,7 @@ def train_agent(model,
 
             model(memory.sample(batch_size))
 
+            # Saves weights of the agent
             weight_saver(model.main_agent, frame_count)
 
         # Updates target weights after K frames have been read
@@ -54,6 +60,7 @@ def train_agent(model,
 
         print(f"# of frames: {frame_count}; Total reward: {reward}; Loss: {loss}; Buffer size: {len(memory)}")
 
+        # Saves loss and reward into tensorflow summary
         with summary.as_default():
             tf.summary.scalar('loss', loss, step=frame_count)
             tf.summary.scalar('reward', reward, step=frame_count)
