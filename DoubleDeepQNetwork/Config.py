@@ -36,7 +36,7 @@ class Config:
     MEMORY_SIZE = 100000
 
     """ Initialize replay buffer with K random experiences """
-    MEMORY_INIT_SIZE = 100
+    MEMORY_INIT_SIZE = 1000000
 
     """ Number of frames kept per state """
     STACK_SIZE = 4
