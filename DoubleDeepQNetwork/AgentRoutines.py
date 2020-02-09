@@ -16,9 +16,8 @@ def train_agent(model,
 
     environment.init_game()
 
-
     counter = count()
-    
+
     # Set frame counter to 0
     frame_count = next(counter)
 
@@ -50,9 +49,9 @@ def train_agent(model,
             # Saves weights of the agent
             weight_saver(model.main_agent, frame_count)
 
-        # Updates target weights after K frames have been read
-        if frame_count % target_update == 0:
-            model.synchronize_target()
+            # Updates target weights after K frames have been read
+            if frame_count % target_update == 0:
+                model.synchronize_target()
 
         reward = environment.get_episode_reward()
 

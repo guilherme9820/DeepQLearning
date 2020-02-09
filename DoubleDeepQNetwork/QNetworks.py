@@ -81,3 +81,4 @@ class DoubleDeepQNetwork(QNet):
     def synchronize_target(self):
         """ Updates target weights with main agent weights """
         self.target_agent.set_weights(self.main_agent.get_weights())
+        print("Target synchronized")
