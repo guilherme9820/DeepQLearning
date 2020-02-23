@@ -76,7 +76,7 @@ def dimensionality_reduction(image, threshold=0.8):
     """ Dimensionality reduction using Singular Value Decomposition (SVD) """
 
     # If image is not a black screen (all elements are not zero)
-    if image.all():
+    if image.any():
 
         # Performs singular value decomposition
         u, s, vh = np.linalg.svd(image, full_matrices=False)
